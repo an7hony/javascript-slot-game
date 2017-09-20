@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="main.css">
+<script>
+
+//Project: Part A
+//Student id: R00111233
+//name: Anthony Pisani
+//Email: anthony.pisani@mycit.ie
+//website:www.an7hony.com
+
+
+
+//these are the random generators numFrom and num too cariables so it will generate between 1 and 8
+var numFrom = 8;
+var numToo=1;
+//this is how much it costs to play
+var playPrice=0.50;
+//the userbalance is how many credits to give the player when the game starts its set to 200 for testing, it can be set to anything less than 50c or you wont have enough to play.
+var userbalance =200;
+
+
+//the betCost the player selected and type
+var betyCost=0;
+var betyType="none";
+
+//Functuon name: updateBalance
+//Description: the update balance function will update the users balance, it will round the user balance with the math.ceil balance*100 /100.
+function updateBalance(){
+
+var balancetext=document.getElementById('balance');
+
+var finaly = Math.ceil(userbalance * 100)/100;
+balancetext.innerHTML=finaly;
+
+}
+
+
+//Function name: hideallimages()
+//description: this function hides all of the slot images that are loaded into the site.
+function hideAllImages(){
+
+document.getElementById('sApple1').style.visibility = 'hidden';
+document.getElementById('sCherry1').style.visibility = 'hidden';
+document.getElementById('sCit1').style.visibility = 'hidden';
+document.getElementById('sFace1').style.visibility = 'hidden';
+document.getElementById('sGold1').style.visibility = 'hidden';
+document.getElementById('sMango1').style.visibility = 'hidden';
+document.getElementById('sMelon1').style.visibility = 'hidden';
+document.getElementById('sSilver1').style.visibility = 'hidden';
+
+
+document.getElementById('sApple2').style.visibility = 'hidden';
+document.getElementById('sCherry2').style.visibility = 'hidden';
+document.getElementById('sCit2').style.visibility = 'hidden';
+document.getElementById('sFace2').style.visibility = 'hidden';
+document.getElementById('sGold2').style.visibility = 'hidden';
+document.getElementById('sMango2').style.visibility = 'hidden';
+document.getElementById('sMelon2').style.visibility = 'hidden';
+document.getElementById('sSilver2').style.visibility = 'hidden';
+
+
+document.getElementById('sApple3').style.visibility = 'hidden';
+document.getElementById('sCherry3').style.visibility = 'hidden';
+document.getElementById('sCit3').style.visibility = 'hidden';
+document.getElementById('sFace3').style.visibility = 'hidden';
+document.getElementById('sGold3').style.visibility = 'hidden';
+document.getElementById('sMango3').style.visibility = 'hidden';
+document.getElementById('sMelon3').style.visibility = 'hidden';
+document.getElementById('sSilver3').style.visibility = 'hidden';
+
+
+
+
+}
+
+//Function name: winCheck
+//description: this function will check if the player has won his bet, if he did it will get the betCost he selected and do the calulation eg: if he wins two of a kind he will win x3, if he gets two
+//he will win x2.
+//
+function winCheck(winval,wintype){
+updateBalance();
+var calc=0; 
+
+if(betyType=="tree" && wintype=="treekind"){
+    
+calc=betyCost*3;
+userbalance+=calc;
+updateBalance();
+//alert((winval)+(betyCost*3));
+//alert("bet of tree"+calc);
+
+
+}
+ else if(betyType=="two" && wintype=="twokind"){
+
+
+calc=betyCost*2;
+userbalance+=winval+calc;
+updateBalance();
+//alert((winval)+(betyCost*2));
+//alert("bet of two"+calc);
+}
+else if(betyType=="none"){
+
+
+userbalance+=winval;
+updateBalance();
+//alert(winval);
+//alert("No bet");
+}
+
+updateBalance();
+
+
+}
+
+//Function name: betType(value)
+//Description: the betType function gets the selection box bet type eg if he wants to be on two of a kind or tree of a kind and sets the public variable to the type, it will also update the text
+//in the bet screen on the slot machine.
+function betType(value){
+var bettext=document.getElementById('betInfoy');
+betyType=value;
+
+
+bettext.innerHTML="Type: " +value;
+}
+
+
+function betCost(value){
+
+if(value>userbalance){
+
+alert("you cant bet! not enough credits");
+betyCost=0;
+
+}else{
+
+
+betyCost=value;
+//alert("bet cost is"+betyCost);
+
+}
+
+}
+
+
+//Function name: startSlot()
+//Description: this is the main game function startSlot, when the player clickes the -play- button this function will run one time.
+//the first thing that it checks if the player has the 50c in his balance to play if he dose not it will send a allert message,
+// it also checks if you have enought cash to bet, if the player has only 50 c in his balance and wants to bet then it will run the game but the bet will be set to "none" and no bet will run.
+//when all the checks are done it will create 3 random generators called pos1,pos2,pos3 the numbers it will generate are between numFrom and numToo. the math.floo just rounds the numbers up to 1 digit insted of eg:2.222.
+//when the numbers are generated it will run the if statement and check what numbers are generated this will work with 3 switch statements and will show the image that has that random number in switch.
+//after the images are displayed it will check to see if the player has won anything. lets say the player won the jackpot then the if statement (if(pos1 == 5 && pos2 == 5 && pos3 ==5)) will run and update the balance 
+//of the player and play the win sound.
+function startSlot(){
+
+updateBalance();
+if(userbalance<playPrice ){
+   
+
+
+
+window.alert("Sorry u need "+playPrice+" credits to play you have "+userbalance);
+
+	}else{
+
+        if(betyType=="tree"|| betyType=="two"){
+
+         if(betyCost>userbalance){
+           alert("no credits taken not enough credits");
+           betType("none");
+
+
+         }else{
+
+
+          
+         userbalance-=betyCost;
+alert("Your Bet Cost: " +betyCost+" credits on type: "+betyType);
+}
+        }
+
+
+     
+
+	//updateBalance();
+	var winSound = new Audio('win.wav');
+	userbalance-=playPrice;
+
+	var pos1 = Math.floor((Math.random() * numFrom) + numToo);
+	var pos2 = Math.floor((Math.random() * numFrom) + numToo);
+	var pos3 = Math.floor((Math.random() * numFrom) + numToo);
+
+
+
+
+hideAllImages();
+switch (pos1) {
+	//hideAllImages();
+    case 0:
+
+        //window.alert("0");
+        break;
+    case 1:
+
+    document.getElementById('sApple1').style.visibility = 'visible';
+        //window.alert("1");
+        break;
+    case 2:
+    document.getElementById('sCherry1').style.visibility = 'visible';
+        //window.alert("2");
+        break;
+    case 3:
+    document.getElementById('sCit1').style.visibility = 'visible';
+       // window.alert("3");
+        break;
+    case 4:
+    document.getElementById('sFace1').style.visibility = 'visible';
+        //window.alert("4");
+        break;
+    case 5:
+    document.getElementById('sGold1').style.visibility = 'visible';
+        //window.alert("5");
+        break;
+    case 6:
+    document.getElementById('sMango1').style.visibility = 'visible';
+        //window.alert("6");
+        break;
+    case 7:
+    document.getElementById('sMelon1').style.visibility = 'visible';
+        //window.alert("7");
+        break;
+    case 8:
+    document.getElementById('sSilver1').style.visibility = 'visible';
+        //window.alert("8");
+        break;
+} 
+
+
+
+switch (pos2) {
+    case 0:
+    
+       // window.alert("0");
+        break;
+    case 1:
+    document.getElementById('sApple2').style.visibility = 'visible';
+       // window.alert("1");
+        break;
+    case 2:
+    document.getElementById('sCherry2').style.visibility = 'visible';
+       // window.alert("2");
+        break;
+    case 3:
+    document.getElementById('sCit2').style.visibility = 'visible';
+        //window.alert("3");
+        break;
+    case 4:
+    document.getElementById('sFace2').style.visibility = 'visible';
+        //window.alert("4");
+        break;
+    case 5:
+    document.getElementById('sGold2').style.visibility = 'visible';
+       // window.alert("5");
+        break;
+    case 6:
+    document.getElementById('sMango2').style.visibility = 'visible';
+        //window.alert("6");
+        break;
+    case 7:
+    document.getElementById('sMelon2').style.visibility = 'visible';
+       // window.alert("7");
+        break;
+    case 8:
+    document.getElementById('sSilver2').style.visibility = 'visible';
+       // window.alert("8");
+        break;
+}
+
+switch (pos3) {
+    case 0:
+    
+       // window.alert("0");
+        break;
+    case 1:
+    document.getElementById('sApple3').style.visibility = 'visible';
+       // window.alert("1");
+        break;
+    case 2:
+    document.getElementById('sCherry3').style.visibility = 'visible';
+       // window.alert("2");
+        break;
+    case 3:
+    document.getElementById('sCit3').style.visibility = 'visible';
+       // window.alert("3");
+        break;
+    case 4:
+    document.getElementById('sFace3').style.visibility = 'visible';
+       // window.alert("4");
+        break;
+    case 5:
+    document.getElementById('sGold3').style.visibility = 'visible';
+        //window.alert("5");
+        break;
+    case 6:
+    document.getElementById('sMango3').style.visibility = 'visible';
+       // window.alert("6");
+        break;
+    case 7:
+    document.getElementById('sMelon3').style.visibility = 'visible';
+       // window.alert("7");
+        break;
+    case 8:
+    document.getElementById('sSilver3').style.visibility = 'visible';
+        //window.alert("8");
+        break;
+}
+
+
+if(pos1 == 5 && pos2 == 5 && pos3 ==5){
+
+
+winSound.play();
+window.alert(">>>>You Won The Jackpot!! 500 credits!!!!<<<<<");
+//userbalance+=500.00;
+winCheck(500.00,"treekind");
+
+}
+
+if(pos1 == 8 && pos2 == 8 && pos3 ==8){
+
+winSound.play();
+window.alert("you got 3 silverbars, you win 200.00 credits");
+//userbalance+=200.00;
+winCheck(200.00,"treekind");
+}
+
+if(pos1 == 1 && pos2 == 1 && pos3 ==1){
+
+winSound.play();
+window.alert("you got 3 apples, you win 20.00 credits ");
+//userbalance+=20.00;
+winCheck(20.00,"treekind");
+}
+
+
+if(pos1 == 2 && pos2 == 2 && pos3 ==2){
+
+winSound.play();
+window.alert("you got 3 cherys,you win 15.00 credits ");
+//userbalance+=15.00;
+winCheck(15.00,"treekind");
+}
+
+if(pos1 == 3 && pos2 == 3 && pos3 ==3){
+
+winSound.play();
+window.alert("you got 3 cit logos,you win 50.oo credits ");
+//userbalance+=50.00;
+winCheck(50.00,"treekind");
+}
+
+
+if(pos1 == 4 && pos2 == 4 && pos3 ==4){
+
+winSound.play();
+window.alert("you got 3 faces ,you win 10.00 credits");
+//userbalance+=10.00;
+winCheck(10.00,"treekind");
+}
+
+if(pos1 == 6 && pos2 == 6 && pos3 ==6){
+
+winSound.play();
+window.alert("you got 3 mangos ,you win 5.00 credits");
+//userbalance+=5.00;
+winCheck(5.00,"treekind");
+}
+
+
+if(pos1 == 7 && pos2 == 7 && pos3 ==7){
+
+winSound.play();
+window.alert("you got 3 melons,you wil 70.00 credits");
+//userbalance+=70.00;
+winCheck(70.00,"treekind");
+
+}
+
+
+
+if(pos1 == 5 && pos2 == 5 && pos3 ==5){
+
+}else{
+if((pos1 == 5 && pos2 == 5) || (pos1 == 5 && pos3 == 5) || (pos3 == 5 && pos2 == 5)){
+
+
+winSound.play();
+window.alert("you got 2 gold bars .you win 2.00 credits");
+
+//userbalance+=2.00;
+winCheck(2.00,"twokind");
+}
+}
+
+
+
+if(pos1 == 8 && pos2 == 8 && pos3 ==8){
+
+}else{
+if((pos1 == 8 && pos2 == 8) || (pos1 == 8 && pos3 == 8) || (pos3 == 8 && pos2 == 8)){
+
+
+winSound.play();
+window.alert("you got 2 silver bars,you win 1.00 credits");
+
+//userbalance+=1.00;
+winCheck(1.00,"twokind");
+}
+}
+
+
+if(pos1 == 7 && pos2 == 7 && pos3 ==7){
+
+}else{
+if((pos1 == 7 && pos2 == 7) || (pos1 == 7 && pos3 == 7) || (pos3 == 7 && pos2 == 7)){
+
+
+winSound.play();
+window.alert("you got 2 melons,you win 0.50 credits ");
+
+//userbalance+=0.50;
+winCheck(0.50,"twokind");
+}
+}
+
+
+
+if(pos1 == 3 && pos2 == 3 && pos3 ==3){
+
+}else{
+if((pos1 == 3 && pos2 == 3) || (pos1 == 3 && pos3 == 3) || (pos3 == 3 && pos2 == 3)){
+
+
+winSound.play();
+window.alert("you got 2 cit logos!,you win 0.10 credits ");
+
+//userbalance+=0.10;
+winCheck(0.10,"twokind");
+}
+}
+updateBalance();
+
+}
+}
+
+
+
+
+</script>
+</head>
+
+<body onLoad="hideAllImages(),updateBalance()">
+<div class="mainBack">
+<div class="logoContainer"></div>
+<div class="mainContainer">
+<div class="balancey" id="balance">
+   
+</div>
+<div class="betinfo" id="betInfoy">
+   
+</div>
+
+<div class="typeBox">
+
+<select onchange="betType(value)">
+<option  name="bet" value="tree">three of a kinde</option>
+<option  name="bet" value="two">two of a kind</option>
+<option  name="bet" value="none" selected="selected">no bet</option>
+
+</select>
+</div>
+<div class="costBox">
+ <select onchange="betCost(value)">
+
+ <option  name="betV" value="0.10" selected="selected">00.10</option>
+ <option  name="betV" value="0.50" >00.50</option>
+<option  name="betV" value="10.00" >10.00</option>
+<option  name="betV" value="20.00">20.00</option>
+<option  name="betV" value="30.00">30.00</option>
+<option  name="betV" value="40.00">40.00</option>
+<option  name="betV" value="50.00">50.00</option>
+<option  name="betV" value="60.00">60.00</option>
+<option  name="betV" value="70.00">70.00</option>
+<option  name="betV" value="80.00">80.00</option>
+<option  name="betV" value="90.00">90.00</option>
+<option  name="betV" value="100.00">100.00</option>
+<option  name="betV" value="200.00">200.00</option>
+
+</select>
+</div>
+
+
+<img class="slot1" id ="sApple1"src="apple.png">
+<img class="slot1" id ="sCherry1"src="cherry.png">
+<img class="slot1" id ="sCit1"src="cit.png">
+<img class="slot1" id ="sFace1"src="face.png">
+<img class="slot1" id ="sGold1"src="gold.png">
+<img class="slot1" id ="sMango1"src="mango.png">
+<img class="slot1" id ="sMelon1"src="melon.png">
+<img class="slot1" id ="sSilver1"src="silverbar.png">
+
+
+
+
+<img class="slot2" id ="sApple2"src="apple.png">
+<img class="slot2" id ="sCherry2"src="cherry.png">
+<img class="slot2" id ="sCit2"src="cit.png">
+<img class="slot2" id ="sFace2"src="face.png">
+<img class="slot2" id ="sGold2"src="gold.png">
+<img class="slot2" id ="sMango2"src="mango.png">
+<img class="slot2" id ="sMelon2"src="melon.png">
+<img class="slot2" id ="sSilver2"src="silverbar.png">
+
+
+
+
+
+<img class="slot3" id ="sApple3"src="apple.png">
+<img class="slot3" id ="sCherry3"src="cherry.png">
+<img class="slot3" id ="sCit3"src="cit.png">
+<img class="slot3" id ="sFace3"src="face.png">
+<img class="slot3" id ="sGold3"src="gold.png">
+<img class="slot3" id ="sMango3"src="mango.png">
+<img class="slot3" id ="sMelon3"src="melon.png">
+<img class="slot3" id ="sSilver3"src="silverbar.png">
+
+<div class="buttonPlay">
+<button type="button" onclick="startSlot()">-Play-</button>
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+</body>
+
+
+
+</html>

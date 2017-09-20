@@ -1,0 +1,115 @@
+
+.slot1
+{
+
+position: absolute;
+    display: block;
+    width: 60px;
+    height: 80px;
+    margin-left: 210px;
+margin-top: 80px;
+
+}
+.costBox{
+
+margin-left: 223px;
+margin-top: 250px;
+position: absolute;
+
+}
+
+.typeBox{
+
+margin-left: 205px;
+margin-top: 229px;
+position: absolute;
+
+    
+}
+.mainBack{
+
+background:url("backMain.jpg");
+
+} 
+
+.balancey{
+
+margin-left: 350px;
+margin-top: 291px;
+position: absolute;
+color: #D7D5D1;
+font-size: 30px;
+
+}
+.betinfo{
+
+margin-left: 111px;
+margin-top: 69px;
+position: absolute;
+color: #169204;
+font-size: 13px;
+
+}
+.slot2
+{
+
+position: absolute;
+    display: block;
+    
+    width: 60px;
+    height: 80px;
+margin-left: 309px;
+margin-top: 80px;
+}
+
+.slot3
+{
+
+position: absolute;
+    display: block;
+    margin-left: 407px;
+margin-top: 80px;
+    width: 60px;
+    height: 80px;
+    
+
+}
+
+
+
+
+
+.buttonPlay{
+
+margin-left: 505px;
+margin-top: 100px;
+position: absolute;
+}
+.logoContainer
+{
+
+position: relative;
+width: 700px;
+height: 350px;
+
+margin-left: auto;
+margin-right: auto;
+
+background:url("slotTop.png");
+
+
+}
+.mainContainer
+{
+	
+
+position: relative;
+width: 700px;
+height: 638px;
+
+margin-left: auto;
+margin-right: auto;
+background:url("slotBottom.png");
+
+
+}
